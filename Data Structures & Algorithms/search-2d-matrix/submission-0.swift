@@ -1,0 +1,35 @@
+class Solution {
+    func searchMatrix(_ matrix: [[Int]], _ target: Int) -> Bool {
+        let ROWS = matrix.count
+        let COLS = matrix[0].count
+
+        var top = 0, bot = ROWS - 1
+        while top <= bot {
+            let row = (top + bot) / 2
+            if target > matrix[row][COLS - 1] {
+                top = row + 1
+            } else if target < matrix[row][0] {
+                bot = row - 1
+            } else {
+                break
+            }
+        }
+
+        if !(top <= bot) {
+            return false
+        }
+        let row = (top + bot) / 2
+        var l = 0, r = COLS - 1
+        while l <= r {
+            let m = (l + r) / 2
+            if target > matrix[row][m] {
+                l = m + 1
+            } else if target < matrix[row][m] {
+                r = m - 1
+            } else {
+                return true
+            }
+        }
+        return false
+    }
+}
